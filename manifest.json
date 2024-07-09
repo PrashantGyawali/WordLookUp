@@ -1,0 +1,32 @@
+{
+"name":"Word Look up",
+"version":"1.0",
+"permissions":[
+    "activeTab",
+    "sidePanel",
+    "scripting",
+    "storage",
+    "tabs"
+],
+"manifest_version":3,
+"icons":{
+    "16":"images/icon16.png",
+    "48":"images/icon48.png",
+    "128":"images/icon128.png"
+},
+"background":{
+    "service_worker":"service-worker.js"
+},
+"side_panel":{
+    "default_path":"sidepanel/sidepanel.html"
+},
+"content_scripts":
+[{  
+    "matches":["<all_urls>"],
+    "js":["content-script.js","make-selectable.js"],
+    "css":["content-script.css"]
+}],
+"action": {
+    "default_title": "Open Side Panel"
+}
+}
