@@ -17,6 +17,25 @@ chrome.storage.local.get("make-text-selectable",(data)=>{
 });
 
 
+document.getElementById("show-search-icon").addEventListener("change",()=>{
+    if(document.getElementById("show-search-icon").checked){
+        chrome.runtime.sendMessage({message:"show-search-icon"});
+    }
+    else{
+        chrome.runtime.sendMessage({message:"remove-show-search-icon"});
+    }
+});
+
+chrome.storage.local.get("show-search-icon",(data)=>{
+    if(data["show-search-icon"]){
+        document.getElementById("show-search-icon").checked=true;
+    }
+    else{
+        document.getElementById("show-search-icon").checked=false;
+    }
+});
+
+
 chrome.storage.local.get("recent-words",(data)=>{
             if(data["recent-words"])
             {
