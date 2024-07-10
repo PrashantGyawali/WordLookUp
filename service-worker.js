@@ -1,7 +1,22 @@
 chrome.action.onClicked.addListener((tab) => {
-    console.log('action clicked');
     chrome.sidePanel.open({ windowId: tab.windowId });
 });
+
+
+chrome.contextMenus.create({
+    id: "wordlookup",
+    title: "Look up",
+    contexts: ['all']
+    });
+
+    
+    chrome.contextMenus.onClicked.addListener((item, tab) => {
+        
+        chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["context-script.js"]
+    });
+    });
 
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -19,9 +34,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             chrome.storage.local.get("recent-words",(olddata)=>{
                 if(olddata["recent-words"])
                 {
-                    if(olddata["recent-words"].length>90)
+                    if(olddata["recent-words"].length>9)
                     {
-                        olddata["recent-words"].pop();
+                        olddata["recent-words"]=[...olddata["recent-words"].slice(0,9)];
                     }
                     let newData=[data,...olddata["recent-words"]];
                     chrome.storage.local.set({"recent-words":newData});
@@ -56,6 +71,13 @@ chrome.runtime.onMessage.addListener(
                 chrome.tabs.reload(tabs[0].id);
                 }
             });
+        }
+
+        if (request.message === "show-search-icon") {
+            chrome.storage.local.set({ "show-search-icon": true });
+        }
+        if (request.message === "remove-show-search-icon") {
+            chrome.storage.local.set({ "show-search-icon": false });
         }
     }
 );

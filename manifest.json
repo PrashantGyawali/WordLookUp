@@ -1,12 +1,14 @@
 {
 "name":"Word Look up",
+"description":"Select the word you want to look up and get its definitions immediately.",
 "version":"1.0",
 "permissions":[
     "activeTab",
     "sidePanel",
     "scripting",
     "storage",
-    "tabs"
+    "tabs",
+    "contextMenus"
 ],
 "manifest_version":3,
 "icons":{
