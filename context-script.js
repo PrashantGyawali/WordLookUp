@@ -1,6 +1,11 @@
 (async function getSelectedWord(){
 
         let selection=window.getSelection();
+
+        let selectedText=selection.toString().trim().replaceAll("\n"," ").split(" ").reduce((final,e)=>final.concat(e.trim()," "),"").trim();
+    
+        if(selectedText.split(" ").length!=1 || selectedText==" " || selectedText=="")return;
+        
         let range       = selection.getRangeAt(0);
         let selectionDimensions = range.getClientRects();
         
@@ -16,10 +21,6 @@
             right=selectionDimensions.right;
             bottom=selectionDimensions.bottom;
         }
-
-        let selectedText=selection.toString().trim().replaceAll("\n"," ").split(" ").reduce((final,e)=>final.concat(e.trim()," "),"").trim();
-    
-        if(selectedText.split(" ").length!=1 || selectedText==" " || selectedText=="")return;
 
             let option=document.createElement("button");
             option.classList.add("word-definition-lookup-input");
