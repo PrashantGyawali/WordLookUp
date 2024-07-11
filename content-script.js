@@ -69,6 +69,10 @@ async function getSelectedWord(){
                     newDiv.style.left=((right+left)/2+window.scrollX)+"px";
                     newDiv.style.transform="translate(-50%,0%)";
                     document.body.appendChild(newDiv);
+                    if(newDiv.getBoundingClientRect().x<0){
+                        newDiv.style.left=0;
+                        newDiv.style.transform="translate(0%,0%)";
+                    }
                     window.addEventListener("mouseup",clearOption);
                     window.addEventListener("mouseup",clearDefintionResults);
             }
